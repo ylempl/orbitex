@@ -4,13 +4,21 @@ import d3ForceMagnetic from 'd3-force-magnetic'
 
 import './sim.css'
 
+//todo
+// utworzenie statku i zwiazanie go siłami
+// inputy dla masy i predkosci statku
+// zmiana predkosci
+// klikniecie na obiekt
+// dopasowanie jednostki astronomicznej do miarki
+// stop/start
 
 const margin = { top: 80, right: 60, bottom: 80, left: 60 }
 const width = window.innerWidth - margin.left - margin.right
 const height = window.innerHeight - margin.top - margin.bottom
 let au = d3.scaleLinear().range([0, Math.min(width, height)]);
-let zoomLevel = 1
-let speedLevel = 1
+let zoomLevel = 1,
+    speedLevel = 1,
+    lockOn
 
 const objects = [
   { name: "Sun", radius: 696000, color: "white" },
@@ -29,40 +37,40 @@ const Sim = () => {
   const d3svg = useRef(null)
 
   useEffect(() => {
-    setInterval( () => simulation(), 0 );
-    d3.select('#canvas')
-      .call(d3.zoom()
-        .scaleExtent([1, 1e6])
-        .on('zoom', function() {
-            zoomed(d3.event.transform);
-        })
+    const canvas = d3.select('#canvas'),
+        ctx = canvas.node().getContext('2d')
+
+    setInterval( () => simulation(canvas, ctx), 0 );
+
+    lockOn = ctx
+    console.log(lockOn)
+    canvas.call(d3.zoom()
+        .scaleExtent([1, 1e4])
+        .on('zoom', () => zoomed(d3.event.transform, ctx))
       )
   })
 
-  function zoomed(newZoomLevel=zoomLevel) {      
-    zoomLevel = newZoomLevel.k;
-    
-    d3.select('#au-100px-scale').text(Math.round(au.invert(100) / zoomLevel * 1000) / 10)
-    d3.select('#canvas').attr("transform", "translate(" + newZoomLevel.x + "," + newZoomLevel.y + ")");
-    
+  function zoomed(newZoomLevel=zoomLevel) {
+    zoomLevel = newZoomLevel;
+
+    d3.select('#au-100px-scale').text(Math.round(au.invert(100) / zoomLevel.k * 1000) / 10)
   }
 
-  function simulation() {
-    const svg = d3.select('#canvas')
-      .attr('width', width)
+  function simulation(canvas, ctx) {
+    canvas.attr('width', width)
       .attr('height', height)
       .node().getContext('2d');
 
     if (zoomLevel) {
-        svg.scale(zoomLevel, zoomLevel);
-        
+        ctx.scale(zoomLevel.k, zoomLevel.k);
+        ctx.translate(zoomLevel.x , zoomLevel.y);
+    }
+
+    if (lockOn) {
+      ctx.translate(-lockOn.x, -lockOn.y);
     }
 
     if (d3svg.current) {
-      const ctx = d3svg.current
-            .getContext('2d')
-
-      ctx.clearRect(0, 0, width, height);
       ctx.fillStyle = "black";
       ctx.fillRect(0, 0, width, height);
 
@@ -103,7 +111,9 @@ const Sim = () => {
         role="img"
         ref={d3svg}/>
       <div id="controls">
-        Speed:
+        <div>
+          Speed:
+        </div>
         <input id="speed-control" type="range" value={getSpeedLevel} min="1" max="10" step="1" onChange={evt => speedChange(evt.target.value)} />
         <span id="speed-control-val">1</span>x
       </div>

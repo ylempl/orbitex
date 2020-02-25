@@ -1,4 +1,4 @@
-# Code Example
+# Orbitex
 
 The provided app is built using [create-react-app](https://github.com/facebook/create-react-app)
 
