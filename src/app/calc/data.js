@@ -20,8 +20,31 @@ export const PLANETS = [
 
 const findRfromDiameter = diameter => ((diameter/2)*1e6)
 
+// dokonczyc tablce planet,  pozniej pokazac tabele z informacjami
+
 export const x = [
   {
+    name: 'Mercury', mass: 5.972*1e24, axisA: 0.387, R: findRfromDiameter(12.756)
+  },
+  {
+    name: 'Venus', mass: 5.972*1e24, axisA: 0.723, R: findRfromDiameter(12.756)
+  },
+  {
     name: 'Earth', mass: 5.972*1e24, axisA: 1, R: findRfromDiameter(12.756)
+  },
+  {
+    name: 'Mars', mass: 5.972*1e24, axisA: 1.524, R: findRfromDiameter(12.756)
+  },
+  {
+    name: 'Jupiter', mass: 5.972*1e24, axisA: 5.2044, R: findRfromDiameter(12.756)
+  },
+  {
+    name: 'Saturn', mass: 5.972*1e24, axisA: 8.5826, R: findRfromDiameter(12.756)
+  },
+  {
+    name: 'Uranus', mass: 5.972*1e24, axisA: 19.21840, R: findRfromDiameter(12.756)
+  },
+  {
+    name: 'Neptune', mass: 5.972*1e24, axisA: 30.11, R: findRfromDiameter(12.756)
   }
 ]
