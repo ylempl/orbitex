@@ -1,5 +1,6 @@
 body {
   background: black;
+  color: white;
 }
 
 .sim {
@@ -11,46 +12,27 @@ body {
 
 .sim-container {
   position: relative;
+  height: calc(100vh - 80px);
+  
 }
 
-#canvas {
-  overflow: unset;
+#background {
+  position: absolute; left: 0; top: 0; 
+  z-index: 0;
+  
 }
-
-#info {
-  position: absolute;
-  bottom: 10px;
-  right: 0;
-  color: white;
-}
-
 #controls {
-  color: white;
   position: absolute;
-  top: 10px;
+  bottom: 30%;
   left: 0;
+  z-index: 3;
+}
+#foreground {
+  position: absolute; left: 0; top: 0; 
+  z-index: 1;
 }
 
-#sun {
-  fill: #ff4e2d;
-}
-
-#venus { 
-  fill: green;
-}
-
-#earth {
-  fill: #203390;
-}
-
-#ship {
-  fill: yellow;
-}
-
-#moon {
-  fill: slategrey;
-}
-
-#trails circle {
-  fill: darkgrey;
+#text {
+  position: absolute; left: 0; top: 0; 
+  z-index: 2;
 }

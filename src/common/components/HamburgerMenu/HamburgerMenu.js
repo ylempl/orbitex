@@ -24,12 +24,18 @@ const HamburgerMenu = () => {
         })}
       >
         <ul className="navbar-nav">
-          <li className="nav-item active">
+          <li className="nav-item">
             <Link to="/" className="nav-link">
               Simulator
               <span className="sr-only">(current)</span>
             </Link>
           </li>
+          <li>
+              <Link to="/calc" className="nav-link">
+                Calc
+                <span className="sr-only"></span>
+              </Link>
+            </li>
         </ul>
       </div>
     </>

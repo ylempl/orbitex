@@ -5,7 +5,7 @@ import Logo from '../Logo/Logo'
 
 const NavigationBar = ({label}) => {
   return (
-    <nav className="navbar navbar-expand-sm navbar-dark bg-primary mb-3">
+    <nav className="navbar navbar-expand-sm navbar-dark">
       <Logo path="/" label={label} />
       <HamburgerMenu />
     </nav>

@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+}
+
+.calc-container {
+  flex: 2;
+  max-width: 50%;
+}
+
+.calc-data-container { 
+  flex: 1;
+}
